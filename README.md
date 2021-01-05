@@ -21,25 +21,14 @@ celery
 6.  安装gunicorn和supervisor,配置django 进程守护
 7.  安装nginx并配置gunicorn代理
 
-#### 使用说明
+#### 具体部署
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+## 以centos7为例。
+## 作为服务端，服务器建议2H4G以上。如果是你的监控的服务器比较小，可以选择1H1G的。
 
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+1.  安装lnmp，具体见：https://lnmp.org/install.html
+2.  安装python3,pip3, 具体可以参考https://blog.csdn.net/qq_36357820/article/details/89631712
+3.  克隆本项目或者下载ZIP解压到 你的目录，比如/home/wwwroot/
+4.  
 
 
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
