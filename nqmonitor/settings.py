@@ -132,7 +132,7 @@ DATABASES = {
         'NAME': 'nqmonitor',
         'HOST': '127.0.0.1', 
         'USER': 'root',
-        'PASSWORD': 'Awupeng1987@',
+        'PASSWORD': 'xx@',
         'PORT': 3306,
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
@@ -196,13 +196,13 @@ EMAIL_USE_SSL = True    #是否使用SSL加密，qq企业邮箱要求使用
 EMAIL_HOST = 'smtp.qq.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'admin@awkxy.com' # 帐号
-EMAIL_HOST_PASSWORD = 'gnqrhvecowfccaad'  # 密码
+EMAIL_HOST_PASSWORD = 'xx'  # 密码
 DEFAULT_FROM_EMAIL = 'MonitorX <admin@awkxy.com>'
 
 
 
 
-MONGO_BROKER_URL = 'mongodb://cnly1987:wupeng1987@127.0.0.1:27017/nqmonitor'
+MONGO_BROKER_URL = 'mongodb://cnly1987:xx@127.0.0.1:27017/nqmonitor'
 
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
