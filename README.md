@@ -10,6 +10,10 @@ mysql
 mongodb
 celery
 
+#### 演示
+![Alt text](http://www.monitorx.xyz/static/assets/images/nodequery/home1.png)
+![Alt text](http://www.monitorx.xyz/static/assets/images/nodequery/home2.png)
+![Alt text](http://www.monitorx.xyz/static/assets/images/nodequery/home3.png)
 
 #### 安装流程
 
