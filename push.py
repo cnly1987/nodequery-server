@@ -6,6 +6,7 @@ def push():
 	os.system('git commit -m "..."')
 	# os.system('git push coding')
 	os.system('git push')
+	os.system('git push github')
 
 	return True
 
