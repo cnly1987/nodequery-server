@@ -11,7 +11,7 @@ mongodb
 celery
 
 
-#### 安装教程
+#### 安装流程
 
 1.  安装python3,pip3
 2.  克隆项目代码，或者下载ZIP解压
@@ -23,12 +23,21 @@ celery
 
 #### 具体部署
 
-###### 以centos7为例。
-###### 作为服务端，服务器建议2H4G以上。如果是你的监控的服务器比较小，可以选择1H1G的。
+###### 以centos7为例， 作为服务端，服务器建议2H4G以上。如果是你的监控的服务器比较小，可以选择1H1G的。
 
-1.  安装lnmp，具体见：https://lnmp.org/install.html
+1.  安装lnmp，具体见：https://lnmp.org/install.html， 本步骤只是为了安装nginx/mysql环境，可以用yum或者其他类似面板替代如(BT,AMH等)
 2.  安装python3,pip3, 具体可以参考https://blog.csdn.net/qq_36357820/article/details/89631712
 3.  克隆本项目或者下载ZIP解压到 你的目录，比如/home/wwwroot/
-4.  
+4.  在项目目录下安装依赖，执行 pip -r requirement.txt, 或者安装pipenv创建虚拟ENV
+5.  在mysql和mongodb中创建数据库nqmonitor.
+6.  在项目目录下nqmonitor/setting.py中 填写mysql数据库账号密码，以及mongodb账号密码，文件中有如何填写的注释。
+7.  执行python manage.py makemigrations  
+8.  执行python manage.py migrate    创建mysql表
+9.  执行python manage.py createsuperuser 创建超级用户。
+10. 安装gunicron    执行：pip install gunicron
+11. 安装supervisor    执行：pip install supervisor
+12. 配置supervisor 守护django 进程，  supervisor教程：http://www.awkxy.com/Linux/supervisor.html
+13. 配置nginx反代，绑定域名
+14. 完工
 
 
