@@ -29,7 +29,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'libs'))
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&_)c%u^3)y6*4df9034d!~sd01aiv7#%8bhhkw-7x#0-c=whds4hx6'
+SECRET_KEY = '&_)c%u^3)y6*4)fh%%@*$01aiv7#%8bhhkw-7x#0-c=whd4hpr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -129,11 +129,11 @@ WSGI_APPLICATION = 'nqmonitor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nqmonitor',  #数据库名
-        'HOST': '127.0.0.1',  #数据库地址
-        'USER': 'root',  #用户
-        'PASSWORD': '', #密码  
-        'PORT': 3306,  #端口
+        'NAME': 'nqmonitor',
+        'HOST': '127.0.0.1', 
+        'USER': 'root',
+        'PASSWORD': 'Awupeng1987@',
+        'PORT': 3306,
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
             # "charset": "utf8mb4",
@@ -190,22 +190,19 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 LOGIN_URL = '/login'
 
 
-
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = False   #是否使用TLS安全传输协议(用于在两个通信应用程序之间提供保密性和数据完整性。)
 EMAIL_USE_SSL = True    #是否使用SSL加密，qq企业邮箱要求使用
 EMAIL_HOST = 'smtp.qq.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'admin@awkxy.com' # 帐号
-EMAIL_HOST_PASSWORD = ''  # 密码
+EMAIL_HOST_PASSWORD = 'gnqrhvecowfccaad'  # 密码
 DEFAULT_FROM_EMAIL = 'MonitorX <admin@awkxy.com>'
 
 
 
-# mongodb 
-MONGO_BROKER_URL = 'mongodb://username:password@url:27017/nqmonitor'
-#   mongodb://用户名:密码@127.0.0.1:27017/数据库名称
+
+MONGO_BROKER_URL = 'mongodb://cnly1987:wupeng1987@127.0.0.1:27017/nqmonitor'
 
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
