@@ -11,6 +11,7 @@ mongodb
 celery
 
 #### 演示
+演示地址:http://www.monitorx.xyz/
 ![Alt text](http://www.monitorx.xyz/static/assets/images/nodequery/home1.png)
 ![Alt text](http://www.monitorx.xyz/static/assets/images/nodequery/home2.png)
 ![Alt text](http://www.monitorx.xyz/static/assets/images/nodequery/home3.png)
@@ -45,3 +46,7 @@ celery
 14. 完工
 
 
+#### 备注
+1.  安装脚本在/static/sh 目录下，请把域名替换成你的域名。
+2.  首页代码在templates/index.html 需要修改的自行编辑
+3.  修改网站名称的，请前往 templates/layout/base.html 
