@@ -3,6 +3,32 @@ var pagination = function(pageNo, pageSize, array) {
     return (offset + pageSize >= array.length) ? array.slice(offset, array.length) : array.slice(offset, offset + pageSize);
 }
 
+// var slider_load = document.getElementById('nouislider_load');
+// var slider_ram = document.getElementById('nouislider_ram');
+// var slider_disk = document.getElementById('nouislider_disk');
+// var soption = {
+//     start: [80],
+//     connect: 'lower',
+//     step: 1,
+//     range: {
+//         'min': [0],
+//         'max': [100]
+//     }
+// }
+// noUiSlider.create(slider_load, soption);
+// noUiSlider.create(slider_ram, soption);
+// noUiSlider.create(slider_disk, soption);
+
+// function getNoUISliderValue(slider, percentage) {
+//     slider.noUiSlider.on('update', function () {
+//         var val = slider.noUiSlider.get();
+//         if (percentage) {
+//             val = parseInt(val);
+//             val += '%';
+//         }
+//         $(slider).parents('td').closest('input.nouislider-value').text(val);
+//     });
+// }
 var app = {
     data:{
         pageLength:6,
@@ -178,7 +204,7 @@ var app = {
                 
         },
         renderCard:function(data){
-            $("#host_total").text(data.length)
+            $("#host_total").text(app.data.hosts.length)
             var html = '<div  style="min-height:60vh">'
             _.each(data, function(item){
                 html += app.methods.renderDom(item)
