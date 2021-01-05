@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>登录| MinitorX</title>
+    <!-- Favicon-->
+  
+
+    <!-- Google Fonts -->
+    <link href="http://fonts.airwaybill.cn/icon?family=Material+Icons" rel="stylesheet">
+    <link href="http://fonts.airwaybill.cn/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Core Css -->
+    <link href="/static/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="/static/assets/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/static/assets/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="/static/assets/css/style.css?v=1.01" rel="stylesheet">
+</head>
+
+<body class="login-page">
+  <div class="login-box">
+    <div class="logo">
+      <a href="javascript:void(0);"><span class="log1" style="font-size:40px">monitor</span><span  class="log2" style="font-size:40px;color:#7c44b9">x</span></a>
+        <small>Linux Monitor</small>
+    </div>
+    <div class="card">
+        <div class="body">
+
+      <form action="/login/" method="post">
+        <div class="msg">Sign in to start your session</div>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="material-icons">person</i>
+            </span>
+            <div class="form-line">
+                <input type="text" class="form-control" name="username" placeholder="Username"    required autofocus>
+                 
+            </div>
+        </div>
+        
+        <div class="input-group">
+          <span class="input-group-addon">
+              <i class="material-icons">lock</i>
+          </span>
+          <div class="form-line">
+              <input type="password" class="form-control" name="password" placeholder="Password" required>
+             
+          </div>
+      </div>
+        <div>
+          <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/static/assets/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/static/assets/plugins/node-waves/waves.js"></script>
+
+    <!-- Validation Plugin Js -->
+    <script src="/static/assets/plugins/jquery-validation/jquery.validate.js"></script>
+    <script src="http://static.ibayeux.com/lodash.min.js"></script>
+      <script src="http://static.ibayeux.com/axios.min.js"></script>
+      <script src="http://cdn.ibayeux.com/js/layer/layer.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/static/assets/js/admin.js"></script>
+    <script src="/static/assets/js/pages/examples/sign-in.js"></script>
+
+</body>
+</html>

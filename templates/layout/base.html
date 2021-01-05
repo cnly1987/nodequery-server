@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>{% block title %}monitorX{% endblock %}</title>
+    <!-- Favicon-->
+    <link rel="icon" href="/static/assets/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="http://fonts.airwaybill.cn/icon?family=Material+Icons" rel="stylesheet">
+      <link href="http://fonts.airwaybill.cn/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link href="/static/assets/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/assets/plugins/node-waves/waves.css" rel="stylesheet" />
+    <link href="/static/assets/plugins/animate-css/animate.css" rel="stylesheet" /> 
+    <link href="/static/assets/css/style.css?v=1.04" rel="stylesheet"> 
+    <script src="/static/assets/js/lodash.min.js"></script>
+    <script src="/static/assets/js/axios.min.js"></script>
+    <script>
+        
+        var user = {
+            id : "{{ request.user.id }}",
+            username:"{{ request.user.username }}"
+        }
+        axios.defaults.headers.common['X-CSRFToken'] = "{{csrf_token}}";
+    </script>
+    {% block css %}
+   {% endblock %}
+</head>
+<body class="theme-indigo">
+     
+    <div id="loading">
+
+    </div>
+  <!-- Overlay For Sidebars -->
+  <div class="overlay"></div>
+  <!-- #END# Overlay For Sidebars -->
+  <!-- Search Bar -->
+   
+  <!-- #END# Search Bar -->
+  <!-- Top Bar -->
+  <nav class="navbar">
+      <div class="container">
+          <div class="navbar-header">
+              <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+              <a href="javascript:void(0);" class="bars"></a>
+              <a class="navbar-brand" href="/dashboard/"><span class="log1">monitor</span><span  class="log2">x</span></a>
+          </div>
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+                <!-- Call Search -->
+                <!-- <li><a href="/hosts/lists/"  ><span class="munu">服务器监控</span> </a></li> -->
+                <!-- <li><a href="/dashboard/"  ><span class="munu">SSL证书监控</span> </a></li>
+                <li><a href="/dashboard/"  ><span class="munu">WEB监控</span> </a></li> --> 
+            </ul>
+            <ul class="nav navbar-nav navbar-right">  
+                  <li class="dropdown">
+                    
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <i class="material-icons">account_circle</i> <span class="icon-name">{{ request.user.username }}</span>   
+                    </a>
+                    <ul class="dropdown-menu">
+                      <!-- <li><a href="/profile/" class=" waves-effect waves-block">Profile</a></li>
+                      <li role="separator" class="divider"></li> -->
+                      <li><a href="/logout/" class=" waves-effect waves-block">Logout</a></li>
+                  </ul>
+                </li>
+                  <!-- #END# Tasks -->
+                  
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+  <section class="content" style="min-height:85vh">
+      <div class="container">
+        {% block content %}
+        {% endblock %}
+      </div>
+  </section>
+    <section class="footer" >
+        
+        <div class="copyright">
+            © <script>document.write(new Date().getFullYear())</script><a href="/">monitorX</a>.
+        </div>
+    </div>
+      <script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+      <script src="/static/assets/plugins/bootstrap/js/bootstrap.js"></script> 
+      <script src="http://cdn.ibayeux.com/js/layer/layer.js"></script>
+      <script src="/static/assets/js/function.js"></script>
+      <!-- Plugin Js --> 
+      <script src="/static/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+      <script src="/static/assets/plugins/node-waves/waves.js"></script>
+      <script src="/static/assets/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+      <!-- Custom Js -->
+      <script src="/static/assets/js/admin.js"></script> 
+       
+
+   {% block js %}
+   {% endblock %}
+  </body>
+</html>

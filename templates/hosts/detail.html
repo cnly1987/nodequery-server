@@ -1,0 +1,269 @@
+{% extends 'layout/base.html' %}
+
+{% block css %}
+<style>
+    table.vtable td:nth-child(odd) {
+        width: 15%;
+        padding-bottom: 10px;
+        color: #74749a;
+    }
+
+    table.vtable td:nth-child(even) {
+        width: 35%;
+
+        padding-bottom: 10px;
+    }
+
+    .info-box {
+        height: 160px
+    }
+
+    .info-box .content {
+        width: 100%;
+    }
+
+    .tab-pane {
+        min-height: 60vh
+    }
+
+    .charts {
+        width: 55vw; 
+        height:350px;
+    }
+
+    @media (max-width: 1200px) {
+        .charts {
+            width: 75vw; 
+            height:350px;
+        }
+    }
+</style>
+<script>var host_id = "{{host.id}}"</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="row" id="main" data-code="{{ host.code }}">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    {{host.name}}
+                    <small>
+                        <span>Next update in <span class="badge bg-info" id="last_time">180</span> seconds</span>
+                    </small>
+
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                     <button class="btn btn-sm btn-info" onclick="app.methods.update.show()">更新信息</button>
+                     <button class="btn btn-sm btn-danger" onclick="app.methods.delete.show()">删除</button>
+                </ul>
+            </div>
+            <div class="body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs tab-nav-right" role="tablist" id="myTab">
+                    <li role="presentation" class="active"><a href="#home" data-toggle="tab"
+                            aria-expanded="true">Overview</a></li>
+                    <li role="presentation" class=""><a href="#net_usage" data-toggle="tab"
+                            aria-expanded="false">Network Usage</a></li>
+                    <li role="presentation" class=""><a href="#net_late" data-toggle="tab" aria-expanded="false">Network
+                            Latency</a></li>
+                    <li role="presentation" class=""><a href="#av_load" data-toggle="tab" aria-expanded="false">Average
+                            Load</a></li>
+                    <li role="presentation" class=""><a href="#ram" data-toggle="tab" aria-expanded="false">RAM &
+                            SWAP</a></li>
+                    <li role="presentation" class=""><a href="#disk" data-toggle="tab" aria-expanded="false">Disk
+                            Usage</a></li>
+                    <li role="presentation" class=""><a href="#processes" data-toggle="tab" aria-expanded="false">Top
+                            Processes </a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="home">
+                        <div class="row" id="mgraph">
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table style="width:100%" class="vtable table" id="mtable">
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="net_usage">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn bg-deep-purple waves-effect" onclick="app.methods.chart_change('month', 'net_usage')">Monthly</button>
+                                    <button type="button" class="btn bg-indigo waves-effect" onclick="app.methods.chart_change('day', 'net_usage')">Daily</button>
+                                    <button type="button" class="btn bg-blue waves-effect" onclick="app.methods.chart_change('hour', 'net_usage')">Hourly</button>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="padding-top:20px">
+                            
+                                <div id="net_usage_chart" class="charts"></div>
+                                <div class="col-md-12">
+                                    <div  style="padding:20px 30px 0 30px">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td>Network</td>
+                                                    <td>IPv4</td>
+                                                    <td>IPv6</td>
+                                                    <td>Total</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="net_info_array">
+                                                
+                                            </tbody>
+                                        </table>    
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="net_late">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn bg-deep-purple waves-effect" onclick="app.methods.chart_change('month', 'net_late')">Monthly</button>
+                                    <button type="button" class="btn bg-indigo waves-effect" onclick="app.methods.chart_change('day', 'net_late')">Daily</button>
+                                    <button type="button" class="btn bg-blue waves-effect" onclick="app.methods.chart_change('hour', 'net_late')">Hourly</button>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="padding-top:20px">
+                                <div id="net_late_chart" class="charts"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="av_load">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn bg-deep-purple waves-effect" onclick="app.methods.chart_change('month', 'av_load')">Monthly</button>
+                                    <button type="button" class="btn bg-indigo waves-effect" onclick="app.methods.chart_change('day', 'av_load')">Daily</button>
+                                    <button type="button" class="btn bg-blue waves-effect" onclick="app.methods.chart_change('hour', 'av_load')">Hourly</button>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="padding-top:20px">
+                                <div id="load_chart" class="charts"></div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="ram">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn bg-deep-purple waves-effect" onclick="app.methods.chart_change('month', 'ram')">Monthly</button>
+                                    <button type="button" class="btn bg-indigo waves-effect" onclick="app.methods.chart_change('day', 'ram')">Daily</button>
+                                    <button type="button" class="btn bg-blue waves-effect" onclick="app.methods.chart_change('hour', 'ram')">Hourly</button>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="padding-top:20px">
+                                <div id="ram_chart" class="charts"></div>  
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="disk">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <button type="button" class="btn bg-deep-purple waves-effect" onclick="app.methods.chart_change('month', 'disk')">Monthly</button>
+                                    <button type="button" class="btn bg-indigo waves-effect" onclick="app.methods.chart_change('day', 'disk')">Daily</button>
+                                    <button type="button" class="btn bg-blue waves-effect" onclick="app.methods.chart_change('hour', 'disk')">Hourly</button>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="padding-top:20px">
+                             
+                                <div id="disk_chart" class="charts"></div>  
+                            </div>
+
+                            <div class="col-md-12">
+                                <div  style="padding:20px 30px 0 30px">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td>Label</td><td>Usage</td><td>Total</td><td class="small"></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="disk-array">
+                                            
+                                        </tbody>
+                                    </table>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="processes">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pull-right">
+                                    <buton class="btn btn-info" onclick="app.methods.psm(this)">More</buton>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <table class="table table-hover" style="width:100%" id="processes_table">
+                                    <thead>
+                                        <tr>
+                                            <td style="width:50%">Process</td>
+                                            <td>Count</td>
+                                            <td>CPU</td>
+                                            <td>Memory</td>
+                                            <td>User</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="background-color: #f1f4f5;"></tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="deleteModal" tabindex="-1" role="dialog"  >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">删除</h4>
+            </div>
+            <div class="modal-body">
+                <span>
+                    请在服务器上以root权限执行以下命令，删除agent,以免agent上报数据。再点击确认删除
+                </span>
+                <pre>userdel –r nodequery</br>rm -rf /etc/nodequery
+                </pre>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" onclick="app.methods.delete.confirm()">确认删除</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">我再考虑考虑</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %} 
+<script src="/static/libs/echarts/echarts.min.js"></script>
+<script src="/static/app/host.js?v=1.24"></script>
+ 
+
+<script>
+    app.init() 
+</script>
+{% endblock %}

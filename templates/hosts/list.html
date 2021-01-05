@@ -1,0 +1,281 @@
+{% extends 'layout/base.html' %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css">
+<style>
+    .progress { 
+        margin-bottom: 0 !important;
+        margin-top:5px;
+        height: 15px;
+    }
+    #add-form div.col-md-12 {
+        padding-bottom:10px
+    }
+    div .sub {
+        padding: 20px;
+        margin-top: 12px;
+        font-size: 13px;
+        background-color: #f1f4f5;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 3px 0 #e7ecee;
+        -moz-box-shadow: 0 3px 0 #e7ecee;
+        box-shadow: 0 3px 0 #e7ecee;
+    }
+    div .sub  span {
+        display: inline-block;
+        width: 80px;
+        padding: 6px;
+        margin-right: 6px;
+        text-align: center;
+        background-color: #dde4e7;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+    td {
+        white-space: nowrap;
+        padding-bottom: 10px;
+    }
+    .type-select {
+        position: absolute;
+        left: 50%;
+        width: 120px;
+        height: 36px;
+        margin: 0px 0 0 -65px;
+        cursor: pointer;
+        background-color: #f1f4f7;
+        border: 1px solid #2f659a;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+    }
+
+    #list-table td {
+        font-size:12px
+    }
+
+    .down {
+        float: left;
+        width: 8px;
+        height: 8px;
+        border: 4px solid #ffb642;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+    .online {
+        float: left;
+        width: 8px;
+        height: 8px;
+        border: 4px solid #52cf2b;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px; 
+        margin-top: 5px;
+    }
+
+   
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="">
+  
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Manage Servers <small> </small>
+                    </h2>
+                    <ul class="header-dropdown m-r--5">
+                        <li class="dropdown">
+                            <button type="button" class="btn btn-primary waves-effect" onclick="app.methods.add()">新增</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body">
+                    <p>You have <span class="badge bg-cyan" id="host_total">0</span> servers in your account</p>
+                    <div   class="type-select">
+                        <div style="padding: 5px 0 0 5px">
+                            <input name="group5" type="radio"  id="card_type" data-v="card" class="with-gap radio-col-purple type-select-radio" checked="checked">
+                            <label for="card_type"><i class="material-icons">view_module</i></label>
+                            <input name="group5" type="radio" id="list_type" data-v="list" class="with-gap radio-col-indigo type-select-radio">
+                            <label for="list_type"><i class="material-icons">list</i></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="mainlist">
+    </div>
+</div>
+
+<div>
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">新增服务器</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-form">
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div>
+                                <span style="width:60px; color:black">Name</span>  
+                                <span style="font-size:12px; color:gray">Preferably the server's hostname or FQDN</span>
+                            </div>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="必填" required>
+                        </div>
+                        <!-- <div class="col-md-12">
+                            <input type="checkbox" id="is_loss_notice" class="filled-in chk-col-light-green" checked="">
+                            <label for="is_loss_notice">Data Loss Notification</label>
+                            <div class="sub">
+                                <div class="row">
+                                    Send alert after <input type="text" value="1" style="width:40px;padding-left:10px"> missed data interval  →  3 minutes
+                                </div>
+                                <div class="row" style="padding-top:15px">
+                                    <input type="checkbox" id="is_check" class="filled-in chk-col-grey" checked="">
+                                    <label for="is_check">Perform an additional ping check to confirm the server is down</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="checkbox" id="is_notice" class="filled-in chk-col-light-green" checked="">
+                            <label for="is_notice">Resource Usage Notification</label>
+                            <div class="sub">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>System Load</td>
+                                                    <td style="width:60%">
+                                                        <div class="col-md-12">
+                                                            <div id="nouislider_load" class="nouislider"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 150px;">
+                                                        <div class="form-inline">
+                                                            <input type="text" class="nouislider-value" name="notice_load" value="80" style="width:30px">
+                                                            <span style="width:100px">% or higher</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>System Load</td>
+                                                    <td style="width:60%">
+                                                        <div class="col-md-12">
+                                                            <div id="nouislider_ram" class="nouislider"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 150px;">
+                                                        <div class="form-inline">
+                                                            <input type="text" class="nouislider-value" name="notice_ram" value="80" style="width:30px">
+                                                            <span style="width:100px">% or higher</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>System Load</td>
+                                                    <td style="width:60%">
+                                                        <div class="col-md-12">
+                                                            <div id="nouislider_disk" class="nouislider"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width: 150px;">
+                                                        <div class="form-inline">
+                                                            <input type="text" class="nouislider-value" name="notice_disk" value="80" style="width:30px">
+                                                            <span style="width:100px">% or higher</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                       
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="row" style="padding-top:25px">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <button class="btn btn-sm btn-info">新增</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" class="btn btn-default btn-block m-b-xs" data-dismiss="modal">I don't want to create a new server</button>
+        
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="okModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" style="width:80vw">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">安装</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h1>Install Agent</h1>
+                            </div>
+                            <div class="body">
+                                  <div class="row">
+                                        <div class="col-md-12">
+                                            <p class="text-grey">复制下面脚本，在命令行中执行。</p>
+                                        </div>
+                                        <div class="col-md-12">
+                                          <pre><span class="cmd">wget</span> -N --no-check-certificate http://www.monitorx.xyz/static/sh/nq-install.sh <span class="and">&&</span> <span class="cmd">bash</span> nq-install.sh <span id="scode"></span></pre>
+                                        </div>
+                                </div> 
+                            </p>
+                          
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <div class="row">
+                    <button type="button" class="btn btn-block btn-lg btn-default waves-effect" data-dismiss="modal">关闭</button>
+                </div>
+        
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script src="/static/assets/js/uuid.min.js"></script>
+<script src="/static/assets/plugins/nouislider/nouislider.js"></script>
+<script src="/static/assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="/static/assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="/static/assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script> 
+<script src="/static/app/list.js?v=1.09"></script>
+<script>
+
+app.init()
+
+     
+</script>
+{% endblock %}
