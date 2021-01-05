@@ -23,8 +23,8 @@ celery
 
 #### 具体部署
 
-## 以centos7为例。
-## 作为服务端，服务器建议2H4G以上。如果是你的监控的服务器比较小，可以选择1H1G的。
+###### 以centos7为例。
+###### 作为服务端，服务器建议2H4G以上。如果是你的监控的服务器比较小，可以选择1H1G的。
 
 1.  安装lnmp，具体见：https://lnmp.org/install.html
 2.  安装python3,pip3, 具体可以参考https://blog.csdn.net/qq_36357820/article/details/89631712
