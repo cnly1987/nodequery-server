@@ -46,10 +46,13 @@ celery
 14. 完工
 
 #### docker部署
-    1. docker-compose up -d //运行容器
-    2. docker-compose exec nodequery python manage.py createsuperuser //创建帐号
-
-
+``` 
+    docker-compose
+        //运行容器
+        1. docker-compose up -d 
+        //创建管理员帐号
+        2. docker-compose exec nodequery python manage.py createsuperuser 
+```
 #### 备注
 1.  安装脚本在/static/sh 目录下，请把域名替换成你的域名。
 2.  首页代码在templates/index.html 需要修改的自行编辑
