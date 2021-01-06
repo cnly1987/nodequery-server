@@ -1,0 +1,34 @@
+version: "3.2"
+services:
+  mysql:
+    image: mysql:5.7.32
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: 'nqmonitor'
+      MYSQL_ROOT_PASSWORD: 123456
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_DATABASE: 'nqmonitor'
+  nodequery:
+    build: .
+    links:
+      - mysql
+      - mongo
+    depends_on:
+      - mysql
+      - mongo
+    ports:
+      - 8081:8000
+    # restart: unless-stopped
+    stdin_open: true
+    tty: true
+    environment: 
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_PASSWORD=admin
+      - DJANGO_SUPERUSER_EMAIL=xxx@gmail.com
+    command: /bin/sh -c "python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py createsuperuser --noinput && gunicorn -w 4 nqmonitor.wsgi"
