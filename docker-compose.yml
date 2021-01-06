@@ -25,10 +25,3 @@ services:
     ports:
       - 8081:8000
     # restart: unless-stopped
-    stdin_open: true
-    tty: true
-    environment: 
-      - DJANGO_SUPERUSER_USERNAME=admin
-      - DJANGO_SUPERUSER_PASSWORD=admin
-      - DJANGO_SUPERUSER_EMAIL=xxx@gmail.com
-    command: /bin/sh -c "gunicorn -w 4 -b 0.0.0.0 nqmonitor.wsgi"

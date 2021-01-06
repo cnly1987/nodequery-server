@@ -130,9 +130,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nqmonitor',
-        'HOST': '127.0.0.1', 
+        'HOST': 'mysql', 
         'USER': 'root',
-        'PASSWORD': 'xx@',
+        'PASSWORD': '123456',
         'PORT': 3306,
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
@@ -202,7 +202,7 @@ DEFAULT_FROM_EMAIL = 'MonitorX <admin@awkxy.com>'
 
 
 
-MONGO_BROKER_URL = 'mongodb://cnly1987:xx@127.0.0.1:27017/nqmonitor'
+MONGO_BROKER_URL = 'mongodb://root:123456@mongo:27017/nqmonitor'
 
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60

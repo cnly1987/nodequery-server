@@ -45,6 +45,10 @@ celery
 13. 配置nginx反代，绑定域名
 14. 完工
 
+#### docker部署
+    1. docker-compose up -d //运行容器
+    2. docker-compose exec nodequery python manage.py createsuperuser //创建帐号
+
 
 #### 备注
 1.  安装脚本在/static/sh 目录下，请把域名替换成你的域名。
