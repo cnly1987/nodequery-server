@@ -132,7 +132,7 @@ DATABASES = {
         'NAME': 'nqmonitor',
         'HOST': '127.0.0.1', 
         'USER': 'root',
-        'PASSWORD': 'x@',
+        'PASSWORD': 'xxx@',
         'PORT': 3306,
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
@@ -202,7 +202,7 @@ DEFAULT_FROM_EMAIL = 'MonitorX <admin@awkxy.com>'
 
 
 
-MONGO_BROKER_URL = 'mongodb://cnly1987:xxxxx@127.0.0.1:27017/nqmonitor'
+MONGO_BROKER_URL = 'mongodb://cnly1987:xxx@127.0.0.1:27017/nqmonitor'
 
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60

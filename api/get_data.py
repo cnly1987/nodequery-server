@@ -17,7 +17,7 @@ from datetime import datetime
 
 from servers.tasks import send_notice_email
 
-def host_load_check(host:dict)->list:
+def host_load_check(host:dict)->bool:
     ram_pt = round(host['ram_usage']/host['ram_total']*100, 2)
     disk_pt = round(host['disk_usage']/host['disk_total']*100, 2)
     sys_pt = host['load_system'] if host['load_system'] <=100 else 100

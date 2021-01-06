@@ -698,47 +698,36 @@ var app = {
             });
             var times = Math.floor(180-app.methods.timediff(host.updated_at, new Date()) )
             app.data.initTimes = times
-
+            var lastUpdate = toDecimal(app.methods.timediff(app.data.host.updated_at),1)
+            var is_down = (lastUpdate>600)?true:false
             if(Object.keys(app.data.records).length === 0 && app.data.records.constructor === Object){
                 layer.msg('暂无数据!', {icon:2})
+            }  
+            if(is_down){
+                layer.alert('your server not response!')
+                $("#last_time").parents('span').html('<span class="badge bg-pink">Your Server is Down</span>')
             }else{
-
-                app.data.initTimes -= 1 
-                var lastUpdate = toDecimal(app.methods.timediff(app.data.host.updated_at),1)
-                var is_down = (lastUpdate>600)?true:false
-                console.log(is_down)
-                if(is_down){
-                    layer.alert('your server not response!')
-                    $("#last_time").parents('span').html('<span class="badge bg-pink">Your Server is Down</span>')
-                }else{
-                    app.methods.net_useage_chart(app.data.records.hours.results.reverse())
-                    app.methods.net_late_chart(app.data.records.hours.results.reverse())
-                    app.methods.load_chart(app.data.records.hours.results.reverse())
-                    app.methods.ram_chart(app.data.records.hours.results.reverse())
-                    app.methods.disk_chart(app.data.records.hours.results.reverse())
-                    setInterval(function(){
-                        $("#last_time").text(app.data.initTimes)
-                        if(app.data.initTimes <= 0){
-                            $.notify({  message: 'updated!'  }, {
-                                type:'bg-purple',
-                                placement: {
-                                    from: 'bootom',
-                                    align: 'right'
-                                }
-                            })
-                            app.data.initTimes = 180
-                        }
-                    }, 1000)
-                }
-
-            }
-             
-            // console.log(app.data.records)
-            
-             
-             
-            loading.close()
-
+                app.methods.net_useage_chart(app.data.records.hours.results.reverse())
+                app.methods.net_late_chart(app.data.records.hours.results.reverse())
+                app.methods.load_chart(app.data.records.hours.results.reverse())
+                app.methods.ram_chart(app.data.records.hours.results.reverse())
+                app.methods.disk_chart(app.data.records.hours.results.reverse())
+                setInterval(function(){
+                    app.data.initTimes -= 1 
+                    $("#last_time").text(app.data.initTimes)
+                    if(app.data.initTimes <= 0){
+                        $.notify({  message: 'updated!'  }, {
+                            type:'bg-purple',
+                            placement: {
+                                from: 'bootom',
+                                align: 'right'
+                            }
+                        })
+                        app.data.initTimes = 180
+                    }
+                }, 1000)
+            } 
+            loading.close() 
              
         }).catch(function(e){
             loading.close()
