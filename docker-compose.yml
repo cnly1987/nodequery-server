@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
   mongo:
     image: mongo
-    restart: always
+    restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: 'root'
       MONGO_INITDB_ROOT_PASSWORD: 123456
@@ -24,4 +24,4 @@ services:
       - mongo
     ports:
       - 8081:8000
-    # restart: unless-stopped
+    restart: unless-stopped
