@@ -1,0 +1,31 @@
+version: "3.2"
+services:
+  mysql:
+    image: mysql:5.7.32
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: 'nqmonitor'
+      MYSQL_ROOT_PASSWORD: 123456
+    volumes:
+      - ./mysql:/var/lib/mysql
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+      MONGO_INITDB_DATABASE: 'nqmonitor'
+    volumes: 
+      - ./mongo:/data/db
+  nodequery:
+    image: zecbd/nodequery-server:latest
+    links:
+      - mysql
+      - mongo
+    depends_on:
+      - mysql
+      - mongo
+    ports:
+      - 8081:8000
+    restart: unless-stopped

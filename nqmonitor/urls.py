@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
  
 from users.auth import AuthToken, login, logout, sigup
 from api.get_data import main as agent_api
@@ -42,3 +43,5 @@ urlpatterns = [
     path('api/agent.json', agent_api),
     path('api/v1/', include('api.router')),
 ]   
+
+urlpatterns += staticfiles_urlpatterns()

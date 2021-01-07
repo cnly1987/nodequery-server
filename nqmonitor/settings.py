@@ -17,7 +17,7 @@ import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
- 
+
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
@@ -129,11 +129,11 @@ WSGI_APPLICATION = 'nqmonitor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'nqmonitor',
-        'HOST': '127.0.0.1', 
-        'USER': 'root',
-        'PASSWORD': 'xx@',
-        'PORT': 3306,
+        'NAME': os.environ.get('MYSQL_DB', 'nqmonitor'),
+        'HOST': os.environ.get('MYSQL_HOST', 'mysql'),
+        'USER': os.environ.get('MYSQL_USER', 'root'),
+        'PASSWORD': os.environ.get('MYSQL_PASSWORD', '123456'),
+        'PORT': os.environ.get('MYSQL_PORT', 3306),
         'OPTIONS': {
             "init_command": "SET foreign_key_checks = 0;",
             # "charset": "utf8mb4",
@@ -175,7 +175,6 @@ USE_L10N = False
 USE_TZ = False
 
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -191,18 +190,23 @@ LOGIN_URL = '/login'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = False   #是否使用TLS安全传输协议(用于在两个通信应用程序之间提供保密性和数据完整性。)
-EMAIL_USE_SSL = True    #是否使用SSL加密，qq企业邮箱要求使用
+EMAIL_USE_TLS = False  # 是否使用TLS安全传输协议(用于在两个通信应用程序之间提供保密性和数据完整性。)
+EMAIL_USE_SSL = True  # 是否使用SSL加密，qq企业邮箱要求使用
 EMAIL_HOST = 'smtp.qq.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'admin@awkxy.com' # 帐号
+EMAIL_HOST_USER = 'admin@awkxy.com'  # 帐号
 EMAIL_HOST_PASSWORD = 'xx'  # 密码
 DEFAULT_FROM_EMAIL = 'MonitorX <admin@awkxy.com>'
 
+MONGO_HOST = os.environ.get('MONGO_HOST', 'mongo')
+MONGO_USER = os.environ.get('MONGO_USER', 'root')
+MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD', '123456')
+MONGO_PORT = os.environ.get('MONGO_PORT', 27017)
+MONGO_DB = os.environ.get('MONGO_DB', 'nqmonitor')
 
 
-
-MONGO_BROKER_URL = 'mongodb://cnly1987:xx@127.0.0.1:27017/nqmonitor'
+MONGO_BROKER_URL = 'mongodb://{user}:{password}@{host}:{port}/{db}'.format(
+    host=MONGO_HOST, user=MONGO_USER, password=MONGO_PASSWORD, port=MONGO_PORT, db=MONGO_DB)
 
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
@@ -210,4 +214,4 @@ CELERY_BROKER_URL = MONGO_BROKER_URL
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'django-db'
-CELERY_TIMEZONE = 'Asia/Shanghai' 
+CELERY_TIMEZONE = 'Asia/Shanghai'
